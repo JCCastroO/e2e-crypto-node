@@ -10,7 +10,7 @@
   ],
   "scripts": {
     "build": "tsc",
-    "prepate": "npm run build"
+    "prepare": "npm run build"
   },
   "keywords": [],
   "author": "",
