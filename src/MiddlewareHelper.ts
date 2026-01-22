@@ -6,7 +6,7 @@ export default class MiddlewareHelper {
   public request(req: Request, res: Response, next: NextFunction): any {
     const authHeader = req.headers["Authorization"] as string;
     if (!authHeader) {
-      next();
+      return next();
     }
 
     const token = authHeader.split(" ")[1] as string;
@@ -19,7 +19,7 @@ export default class MiddlewareHelper {
       const decryptedBody = decrypt(key, encryptedBody);
 
       req.body = decryptedBody;
-      next();
+      return next();
     } catch (error) {
       return res.status(500).send("Internal Server Error");
     }
@@ -30,7 +30,7 @@ export default class MiddlewareHelper {
 
     const authHeader = req.headers["Authorization"] as string;
     if (!authHeader) {
-      next();
+      return next();
     }
 
     const token = authHeader.split(" ")[1] as string;
@@ -52,7 +52,7 @@ export default class MiddlewareHelper {
         return originalSend.call(this, encryptedBody);
       };
 
-      next();
+      return next();
     } catch (error) {
       return res.status(500).send("Internal Server Error");
     }
