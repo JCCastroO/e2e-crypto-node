@@ -10,7 +10,8 @@ export default class InterceptorHelper {
     }
 
     const token = authHeader.split(" ")[1] as string;
-    const key = this._getKey(token);
+    const decoded = jwt.decode(token) as jwt.JwtPayload;
+    const key = decoded["email"];
 
     const data = JSON.stringify(config.data);
     const encryptedData = encrypt(key, data);
@@ -27,7 +28,8 @@ export default class InterceptorHelper {
     }
 
     const token = authHeader.split(" ")[1] as string;
-    const key = this._getKey(token);
+    const decoded = jwt.decode(token) as jwt.JwtPayload;
+    const key = decoded["email"];
     const encryptedData = response.data;
 
     const decryptedData = decrypt(key, encryptedData);
@@ -36,12 +38,5 @@ export default class InterceptorHelper {
     response.headers["Content-Type"] = "application/json";
 
     return response;
-  }
-
-  private _getKey(token: string): string {
-    const decoded = jwt.decode(token) as jwt.JwtPayload;
-    const key = decoded["email"];
-
-    return key;
   }
 }
