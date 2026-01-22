@@ -1,4 +1,4 @@
-import { type AxiosResponse, type InternalAxiosRequestConfig } from "axios";
+import type { AxiosResponse, InternalAxiosRequestConfig } from "axios";
 import jwt from "jsonwebtoken";
 import { decrypt, encrypt } from "./index.js";
 

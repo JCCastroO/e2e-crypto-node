@@ -1,5 +1,5 @@
-import { createCipheriv, createDecipheriv, createHash } from "node:crypto";
 import type { CipherCCMTypes, CipherKey, BinaryLike } from "node:crypto";
+import { createCipheriv, createDecipheriv, createHash } from "node:crypto";
 
 export default class CryptoHelper {
   private readonly _algorithm: CipherCCMTypes = "aes-256-gcm" as CipherCCMTypes;
