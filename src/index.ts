@@ -1,13 +1,21 @@
-const CryptoHelper = require("./CryptoHelper");
+import type { Request, Response, NextFunction } from "express";
+import CryptoHelper from "./CryptoHelper.js";
+import MiddlewareHelper from "./MiddlewareHelper.js";
 
-const instance = new CryptoHelper();
+const cryptoHelper = new CryptoHelper();
+const middlewareHelper = new MiddlewareHelper();
 
-function encrypt(key: string, text: string): { content: string; tag: string } {
-  return instance.encrypt(key, text);
+function encrypt(key: string, text: string): string {
+  return cryptoHelper.encrypt(key, text);
 }
 
-function decrypt(key: string, hash: string, tag: string): string {
-  return instance.decrypt(key, hash, tag);
+function decrypt(key: string, hash: string): string {
+  return cryptoHelper.decrypt(key, hash);
 }
 
-module.exports = { encrypt, decrypt };
+function addMiddlewares(req: Request, res: Response, next: NextFunction): void {
+  middlewareHelper.request(req, res, next);
+  middlewareHelper.response(req, res, next);
+}
+
+export { encrypt, decrypt, addMiddlewares };
