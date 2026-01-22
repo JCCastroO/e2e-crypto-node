@@ -1,9 +1,12 @@
 import type { Request, Response, NextFunction } from "express";
 import CryptoHelper from "./CryptoHelper.js";
 import MiddlewareHelper from "./MiddlewareHelper.js";
+import InterceptorHelper from "./InterceptorHelper.js";
+import { type AxiosStatic } from "axios";
 
 const cryptoHelper = new CryptoHelper();
 const middlewareHelper = new MiddlewareHelper();
+const interceptorHelper = new InterceptorHelper();
 
 function encrypt(key: string, text: string): string {
   return cryptoHelper.encrypt(key, text);
@@ -18,4 +21,9 @@ function addMiddlewares(req: Request, res: Response, next: NextFunction): void {
   middlewareHelper.response(req, res, next);
 }
 
-export { encrypt, decrypt, addMiddlewares };
+function addInterceptors(axios: AxiosStatic): void {
+  axios.interceptors.request.use(interceptorHelper.request);
+  axios.interceptors.response.use(interceptorHelper.response);
+}
+
+export { encrypt, decrypt, addMiddlewares, addInterceptors };

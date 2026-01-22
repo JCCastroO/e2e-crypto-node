@@ -27,6 +27,7 @@ export default class MiddlewareHelper {
     try {
       const key = this._getKey(token);
 
+      res.setHeader("X-Authorization", req.headers.authorization as string);
       res.removeHeader("authorization");
 
       res.send = (body): Response => {
