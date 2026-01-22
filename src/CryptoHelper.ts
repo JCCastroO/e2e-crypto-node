@@ -49,7 +49,7 @@ export default class CryptoHelper {
       .update(rawBuffer)
       .digest()
       .subarray(0, 32);
-    const iv = createHash("sha256").update(rawBuffer).digest().subarray(0, 12);
+    const iv = createHash("sha256").update(rawBuffer).digest().subarray(0, 16);
 
     return { secretKey, iv };
   }
