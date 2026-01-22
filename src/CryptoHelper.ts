@@ -2,7 +2,7 @@ import type { CipherCCMTypes, CipherKey, BinaryLike } from "node:crypto";
 import { createCipheriv, createDecipheriv, createHash } from "node:crypto";
 
 export default class CryptoHelper {
-  private readonly _algorithm: CipherCCMTypes = "aes-256-gcm" as CipherCCMTypes;
+  private readonly _algorithm: CipherCCMTypes = "aes-256-cbc" as CipherCCMTypes;
 
   public encrypt(key: string, text: string): string {
     const transformedKey = this._transform(key);
